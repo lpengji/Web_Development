@@ -1,3 +1,4 @@
+
 body{
     background-color: #DDADA2;
     margin-top: 2%;
@@ -13,11 +14,14 @@ body{
 header{
     text-align: center;
     border : 3px ridge black;
+
 	background-color: #cb7d6c;
 	margin: 1% 1% 2% 1%;
 }
 
+
 footer, nav{
+
 	position:relative;
 	padding: 1%;
   	border : 3px ridge black;
@@ -32,6 +36,7 @@ footer, nav{
 	padding: 1%;
 	background-color: #cb7d6c;
 }
+
 
 main{
     display: flex;
@@ -65,3 +70,4 @@ iframe{
     width: 60%;
     height: 700px;
 }
+
