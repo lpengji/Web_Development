@@ -25,6 +25,10 @@ footer, nav{
 	margin: 1%;
 }
 
+footer{
+    overflow: auto;
+}
+
 .login{
 	text-align: center;
 	border: 3px solid black;
@@ -64,4 +68,12 @@ article{
 iframe{
     width: 60%;
     height: 700px;
+}
+
+.leftImage{
+    float:left;
+}
+
+.rightImage{
+    float: right;
 }
