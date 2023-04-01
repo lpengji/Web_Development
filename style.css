@@ -1,0 +1,67 @@
+body{
+    background-color: #DDADA2;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid black;
+    max-width: 80%;
+    min-width: 50%;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+header{
+    text-align: center;
+    border : 3px ridge black;
+	background-color: #cb7d6c;
+	margin: 1% 1% 2% 1%;
+}
+
+footer, nav{
+	position:relative;
+	padding: 1%;
+  	border : 3px ridge black;
+	background-color: #cb7d6c;
+	margin: 1%;
+}
+
+.login{
+	text-align: center;
+	border: 3px solid black;
+	margin: 1%;
+	padding: 1%;
+	background-color: #cb7d6c;
+}
+
+main{
+    display: flex;
+}
+
+.product, .person, .entity{
+    text-align: center;
+	border: 3px solid black;
+    background-color: #cb7d6c;
+    margin:1%;
+    padding: 10px;
+    width: 30%;
+}
+
+article{
+    margin: 10%;
+}
+
+.summary{
+    text-align: center;
+	border: 3px solid black;
+	margin: 1%;
+	padding: 1%;
+	background-color: #cb7d6c;
+    width: 33%;
+    max-width: 40%;
+    height: fit-content;
+}
+
+iframe{
+    width: 60%;
+    height: 700px;
+}
