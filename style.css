@@ -1,23 +1,27 @@
-body
-	{
-	background-color: #DDADA2;
-	width: 95%;
-	margin-left: 2%;
-  	border : 3px solid black;
-  	position: relative;
 
+body{
+    background-color: #DDADA2;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid black;
+    max-width: 80%;
+    min-width: 50%;
+    font-weight: bold;
+    font-size: x-large;
 }
 
 header{
-	text-align: center;
-	position:relative;
-	padding: 1%;
-  	border : 3px ridge black;
+    text-align: center;
+    border : 3px ridge black;
+
 	background-color: #cb7d6c;
 	margin: 1% 1% 2% 1%;
 }
 
-nav{
+
+footer, nav{
+
 	position:relative;
 	padding: 1%;
   	border : 3px ridge black;
@@ -33,48 +37,37 @@ nav{
 	background-color: #cb7d6c;
 }
 
-a:link{
-	color:blue;
+
+main{
+    display: flex;
 }
 
-a:visited{
-	color: white;
+.product, .person, .entity{
+    text-align: center;
+	border: 3px solid black;
+    background-color: #cb7d6c;
+    margin:1%;
+    padding: 10px;
+    width: 30%;
 }
 
-section{
+article{
+    margin: 10%;
+}
+
+.summary{
+    text-align: center;
 	border: 3px solid black;
 	margin: 1%;
 	padding: 1%;
 	background-color: #cb7d6c;
-	position: relative;
-	float: left;
+    width: 33%;
+    max-width: 40%;
+    height: fit-content;
 }
 
-article{
-	text-align:center;
+iframe{
+    width: 60%;
+    height: 700px;
 }
 
-footer{
-	position:relative;
-  	border : 3px ridge black;
-	background-color: #cb7d6c;
-	margin: 1%;
-}
-
-.leftImage{
-	text-align: left;
-}
-
-.rightImage{
-	text-align: right;
-}
-
-aside{
-	width: 27%;
-  	border : 3px ridge black;
-	background-color: #cb7d6c;
-	margin: 1%;
-	padding: 1%;
-	text-align: center;
-	float: left;
-}

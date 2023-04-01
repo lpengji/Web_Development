@@ -3,29 +3,28 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+
     <link rel="stylesheet" href="style.css"/>
     <title>HTML</title>
 </head>
 <body>
     <header><h2>Anales de la Ciencia</h2></header>
+
     <nav><a href="index.html">Inicio</a>/<a href="HTML.html">HTML</a></nav>
     <main>
-        <aside>
+        <div class="summary">
             <p><h4>HTML</h4>
                 29 de octubre de 1991</p> 
             <img src="img/html.png" height="150">
-        </aside>
-    </main>
-    <section>
+        </div>
+        
         <iframe src="https://es.wikipedia.org/wiki/HTML" name="htmlIframe" height="300" width="400"></iframe>
-    </section>
+        
+    </main>
     <footer>
-        <div class="leftImage">
-            <a href="CERN.html"><img src="img/cern.png" height="50"></a>
-        </div>
-        <div class="rightImage">
-            <a href="TimBernersLee.html"><img src="img/TimBernersLee.jpeg" height="50"></a>
-        </div>
-        </footer>
+        <a href="CERN.html" class="leftImage"><img src="img/cern.png" height="50"></a>
+        <a href="TimBernersLee.html" class="rightImage"><img src="img/TimBernersLee.jpeg" height="50"></a>
+    </footer>
+
 </body>
 </html>
