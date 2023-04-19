@@ -1,8 +1,8 @@
 class Product extends Entity{
     
 
-    constructor(name,birthDate,deathDate,wikiURL,person,entity,imageURL) {
-        super(name,birthDate,deathDate,wikiURL,person,imageURL);
+    constructor(name,birthDate,deathDate,wikiURL,imageURL,person,entity) {
+        super(name,birthDate,deathDate,wikiURL,imageURL);
         //this.#entities = entity;
     }
     /*
