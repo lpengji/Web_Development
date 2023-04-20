@@ -49,8 +49,8 @@ class Person{
     }
 
     static toIndexHTML(person){
-        return `<img src=`+person.imageURL+` height="45" /> 
-        <a href="`+person.name.replace(/\s+/g, '')+`.html">`+person.name +`</a>'
+        return `<article><img src=`+person.imageURL+` height="45" /> 
+        <a href="`+person.name.replace(/\s+/g, '')+`.html">`+person.name+`</a><br></article>
         `
     }
 }

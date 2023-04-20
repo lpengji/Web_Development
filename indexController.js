@@ -1,15 +1,12 @@
 const productBody = document.querySelector(".product");
 const personBody = document.querySelector(".person");
 const entityBody = document.querySelector(".entity");
-const loginBody = document.querySelector(".login");
-const mainBody = document.querySelector("main");
 
 let personList = [];
 let entityList = [];
 let productList = [];
 
-
-
+// carga los objetos por defecto al localStorage
 function previousSetValues(){
     personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
     "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg"));
@@ -20,6 +17,15 @@ function previousSetValues(){
     productList.push(new Product("HTML",new Date(1991,10,29),
     "none","https://es.wikipedia.org/wiki/HTML","html.png"))
 
+    personList.push(new Person("A",new Date(1995,6,8),
+    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg"));
+
+    entityList.push(new Entity("b",new Date(1954,7,29),
+    "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear","cern.png"));
+
+    productList.push(new Product("c",new Date(1991,10,29),
+    "none","https://es.wikipedia.org/wiki/HTML","html.png"))
+
     localStorage.setItem("personList",JSON.stringify(personList));
     localStorage.setItem("entityList",JSON.stringify(entityList));
     localStorage.setItem("productList",JSON.stringify(productList))
@@ -27,6 +33,7 @@ function previousSetValues(){
 
 previousSetValues();
 
+// carga los contenidos del localStorage por pantalla
 function onLoad(){
     this.loadPersonList();
     this.loadEntityList();
