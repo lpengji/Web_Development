@@ -4,6 +4,7 @@ const mainBodyElements = mainBody.children;
 
 
 function login(){
+    sessionStorage.setItem("Logged",true);
     this.replaceLoginButton();
     this.addAddButton();
     this.addModificationButton();
@@ -37,6 +38,7 @@ function addRemoveButton(){
 }
 
 function logout(){
+    sessionStorage.setItem("Logged",false);
     this.replaceLogoutButton();
     this.removeAddButton();
     this.removeModificationButton();
@@ -51,7 +53,16 @@ function replaceLogoutButton(){
     <input id="campoContraseña" type="password" name="campoContraseña" />
     <input type="submit" name="enviar" value="login" onclick="login()"/>`
 }
-replaceLogoutButton();
+
+function RunOnlyOnceReplaceLogoutLoginButton(){
+    if(sessionStorage.getItem('Logged')=="false"){
+        replaceLogoutButton();
+    }
+    else
+        replaceLoginButton();
+}
+
+RunOnlyOnceReplaceLogoutLoginButton()
 
 function removeAddButton(){
     for(let i =0; i<mainBodyElements.length; i++){
@@ -72,3 +83,18 @@ function removeRemoveButton(){
         articlesList[i].removeChild(document.getElementById("remove"));
     }
 }
+
+function addNewElement(){
+
+}
+
+function modifyElement(){
+
+}
+
+function removeElement(){
+    var grandparendNode = this.parentNode.parentNode;
+    console.log(grandparendNode)
+}
+
+removeElement();

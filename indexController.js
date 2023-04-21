@@ -8,6 +8,8 @@ let productList = [];
 
 // carga los objetos por defecto al localStorage
 function previousSetValues(){
+    sessionStorage.setItem("Logged",false);
+
     personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
     "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg"));
 
@@ -31,7 +33,14 @@ function previousSetValues(){
     localStorage.setItem("productList",JSON.stringify(productList))
 }
 
-previousSetValues();
+function runOnlyOnceSetDefaultValues(){
+    if(!sessionStorage.getItem("doneLoadingData")){
+        previousSetValues();
+        sessionStorage.setItem("doneLoadingData","true");
+    }
+}
+
+runOnlyOnceSetDefaultValues();
 
 // carga los contenidos del localStorage por pantalla
 function onLoad(){
