@@ -49,15 +49,11 @@ class Person{
     }
 
     static toIndexHTML(person){
-        //createHTMLPage(person);
 
+        var destination = "plantilla.html";
         return `<article class="`+person.name+`"><img src=`+person.imageURL+` height="45" /> 
-        <a href="`+person.name.replace(/\s+/g, '')+`.html">`+person.name+`</a><br></article>
+        <a href="`+destination+`" onclick="createHTMLPage()">`+person.name+`</a><br></article>
         `
-    }
-
-    createHTMLPage(person){
-        
     }
 
 }
