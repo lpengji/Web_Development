@@ -19,7 +19,7 @@ function addAddButton(){
     let type;
     for(let i =0; i<mainBodyElements.length; i++){
         type = mainBodyElements[i].getAttribute("class")
-        mainBodyElements[i].innerHTML += `<button id="add" onclick="addNewElement()">add `+type+` </button>`;
+        mainBodyElements[i].innerHTML += `<button id="add" onclick="changeToCreateForum()">add `+type+` </button>`;
     }
 }
 

@@ -8,7 +8,7 @@ let productList = [];
 
 // carga los objetos por defecto al localStorage
 function previousSetValues(){
-    sessionStorage.setItem("Logged",false);
+    //sessionStorage.setItem("Logged",false);
 
     personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
     "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg"));

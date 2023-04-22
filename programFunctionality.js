@@ -7,12 +7,34 @@ const iFrameBody = document.querySelector("iframe")
 const titleBody = document.querySelector("title")
 
 
-function addNewElement(){
+function changeToCreateForum(){
+    let addingButton = event.target;
+    let actualAddingButtonList = addingButton.parentNode.className + "List"
+    sessionStorage.setItem("actualAddingButtonList",JSON.stringify(actualAddingButtonList));
 
+    window.location.href = "createNewElementForum.html"
+}
+
+function addNewElement(){
+    let name = document.getElementById("name").value;
+    let birthDate = document.getElementById("birthDate").value;
+    let deathDate = document.getElementById("deathDate").value;
+    let imageURL = document.getElementById("imageURL").value;
+    let wikiURL = document.getElementById("wikiURL").value;
+
+    if(!deathDate)
+        deathDate= "none";
+    
+    let addingListType = JSON.parse(sessionStorage.getItem("actualAddingButtonList"))
+    let localstorageList = JSON.parse(localStorage.getItem(addingListType))
+    localstorageList.push(new Person(name,birthDate,deathDate,wikiURL,imageURL))
+    localStorage.setItem(addingListType,JSON.stringify(localstorageList))
+
+    window.location.href="index.html"
 }
 
 function modifyElement(){
-
+    //introducir en el localstorage el elemento a cambiar 
 }
 
 function removeElement(){
@@ -36,11 +58,11 @@ function createHTMLPage(){
     
     lastclickedEventList = lastclickedEventList.filter(item => item.name === lastclickedEvent.parentNode.className)
     
-    localStorage.setItem("lastclickedEventList",JSON.stringify(lastclickedEventList));
+    sessionStorage.setItem("lastclickedEventList",JSON.stringify(lastclickedEventList));
 }
 
 function reloadHTMLPage(){
-    lastclicked = JSON.parse(localStorage.getItem("lastclickedEventList"))
+    lastclicked = JSON.parse(sessionStorage.getItem("lastclickedEventList"))
 
     currentPageBody.innerHTML = lastclicked[0].name
     pageNameBody.innerHTML = lastclicked[0].name

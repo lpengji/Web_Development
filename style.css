@@ -82,3 +82,12 @@ iframe{
 .rightImage{
     float: right;
 }
+
+.newElementForum{
+    text-align: center;
+	border: 3px solid black;
+    background-color: #cb7d6c;
+    margin:1%;
+    padding: 10px;
+    width: 50;
+}
