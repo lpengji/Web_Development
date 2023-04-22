@@ -4,7 +4,7 @@ const mainBodyElements = mainBody.children;
 
 
 function login(){
-    sessionStorage.setItem("Logged",true);
+    //sessionStorage.setItem("Logged",true);
     this.replaceLoginButton();
     this.addAddButton();
     this.addModificationButton();
@@ -38,7 +38,7 @@ function addRemoveButton(){
 }
 
 function logout(){
-    sessionStorage.setItem("Logged",false);
+    //sessionStorage.setItem("Logged",false);
     this.replaceLogoutButton();
     this.removeAddButton();
     this.removeModificationButton();
