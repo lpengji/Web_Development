@@ -4,6 +4,7 @@ const birthDateBody = document.querySelector(".birthDate");
 const deathDateBody = document.querySelector(".deathDate")
 const autorImageBody = document.querySelector(".autorImage")
 const iFrameBody = document.querySelector("iframe")
+const titleBody = document.querySelector("title")
 
 
 function addNewElement(){
@@ -47,4 +48,5 @@ function reloadHTMLPage(){
     deathDateBody.innerHTML += lastclicked[0].deathDate
     autorImageBody.setAttribute("src",lastclicked[0].imageURL);
     iFrameBody.setAttribute("src",lastclicked[0].wikiURL);
+    titleBody.innerHTML = lastclicked[0].name
 }
