@@ -6,12 +6,11 @@ const autorImageBody = document.querySelector(".autorImage")
 const iFrameBody = document.querySelector("iframe")
 const titleBody = document.querySelector("title")
 
-
 function changeToCreateForum(){
     let addingButton = event.target;
     let actualAddingButtonList = addingButton.parentNode.className + "List"
     sessionStorage.setItem("actualAddingButtonList",JSON.stringify(actualAddingButtonList));
-
+    
     window.location.href = "createNewElementForum.html"
 }
 
@@ -21,6 +20,12 @@ function addNewElement(){
     let deathDate = document.getElementById("deathDate").value;
     let imageURL = document.getElementById("imageURL").value;
     let wikiURL = document.getElementById("wikiURL").value;
+    
+    if(!comprobarDatosRellenos(name,birthDate,imageURL,wikiURL))
+        return false
+    
+    if(comprobarDatosRepetidos(name))
+        return false
 
     if(!deathDate)
         deathDate= "none";
@@ -33,8 +38,74 @@ function addNewElement(){
     window.location.href="index.html"
 }
 
+function comprobarDatosRellenos(name,birthDate,imageURL,wikiURL){
+    let datosRellenos = false
+    if (name === "" || birthDate === "" || imageURL === "" || wikiURL === "") {
+        alert("Por favor complete los campos obligatorios.");
+    }
+    else
+        datosRellenos = true
+
+    return datosRellenos;
+}
+
+function comprobarDatosRepetidos(name){
+    let datoRepetido = false
+    let addingListType = JSON.parse(sessionStorage.getItem("actualAddingButtonList"))
+    let localstorageList = JSON.parse(localStorage.getItem(addingListType))
+    
+    for(let i =0; i<localstorageList.length; i++){
+        localstorageList = localstorageList.filter(item => item.name.toLowerCase() === name.toLowerCase())
+    }
+    
+    if(localstorageList != 0){
+        alert("El  introducido ya existe en la aplicación")
+        datoRepetido = true
+    }
+
+    return datoRepetido
+}
+
+function changeToModifyForum(){
+    let addingButton = event.target;
+    let actualAddingButtonList = [addingButton.parentNode.parentNode.className + "List",addingButton.parentNode.className]
+    sessionStorage.setItem("actualAddingButtonList",JSON.stringify(actualAddingButtonList));
+    window.location.href = "changeElementForum.html"
+}
+
 function modifyElement(){
-    //introducir en el localstorage el elemento a cambiar 
+    let name = document.getElementById("name").value;
+    let birthDate = document.getElementById("birthDate").value;
+    let deathDate = document.getElementById("deathDate").value;
+    let imageURL = document.getElementById("imageURL").value;
+    let wikiURL = document.getElementById("wikiURL").value;
+    
+    if (name === "" || birthDate === "" || imageURL === "" || wikiURL === "") {
+        alert("Por favor complete los campos obligatorios.");
+        return false;
+    }
+
+    if(!deathDate)
+        deathDate= "none";
+    let listToLoad = JSON.parse(sessionStorage.getItem("actualAddingButtonList"))
+    let currentListType = listToLoad[0];
+    let currentList = JSON.parse(localStorage.getItem(currentListType))
+    let currentData = listToLoad[1];
+    
+    currentObject = currentList.filter(item => item.name === currentData)
+
+    currentObject[0].name = name
+    currentObject[0].birthDate = birthDate
+    currentObject[0].deathDate = deathDate
+    currentObject[0].imageURL = "img/"+imageURL
+    currentObject[0].wikiURL = wikiURL
+
+    
+
+    localStorage.setItem(currentListType,JSON.stringify(currentList))
+
+    window.location.href="index.html"
+    
 }
 
 function removeElement(){

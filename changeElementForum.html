@@ -9,9 +9,10 @@
     <title>anales de la ciencia</title>
 </head>
 
-<body>
+<body onload="loadData()">
     <nav><a href="index.html">Inicio</a></nav>
-        
+    
+    
     <main>
         <section class = "newElementForum">
             <label for="name">Nombre:</label>
@@ -29,7 +30,7 @@
             <label for="wikiURL">WIKI URL:</label>
             <input id="wikiURL" type="text" name="wikiURL"/>
         
-            <input type="submit" name="enviar" value="confirmar" onclick="addNewElement()"/>
+            <input type="submit" name="cambiar" value="confirmar" onclick="modifyElement()"/>
         </section>
         
     </main>
@@ -38,6 +39,7 @@
     <script src="Entity.js"></script>
     <script src="Product.js"></script>
     <script src="programFunctionality.js"></script>
+    <script src="indexController.js"></script>
     
 </body>
 </html>

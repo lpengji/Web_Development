@@ -76,3 +76,24 @@ function loadProductList(){
         productBody.innerHTML += Product.toIndexHTML(productList[i]) ;
     }
 }
+
+function loadData(){
+    let name = document.getElementById("name");
+    let birthDate = document.getElementById("birthDate");
+    let deathDate = document.getElementById("deathDate");
+    let imageURL = document.getElementById("imageURL");
+    let wikiURL = document.getElementById("wikiURL");
+
+    let listToLoad = JSON.parse(sessionStorage.getItem("actualAddingButtonList"))
+    let currentListType = listToLoad[0];
+    let currentList = JSON.parse(localStorage.getItem(currentListType))
+    let currentData = listToLoad[1];
+
+    currentObject = currentList.filter(item => item.name === currentData)
+
+    name.value = currentObject[0].name;
+    birthDate.value = currentObject[0].birthDate;
+    deathDate.value = currentObject[0].deathDate;
+    imageURL.value = currentObject[0].imageURL.substring(4);
+    wikiURL.value = currentObject[0].wikiURL;
+}

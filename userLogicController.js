@@ -26,7 +26,7 @@ function addAddButton(){
 function addModificationButton(){
     const articlesList = document.querySelectorAll("article");
     for(let i =0; i<articlesList.length; i++){
-        articlesList[i].innerHTML += `<button id="modification" onclick="modifyElement()">change</button>`;
+        articlesList[i].innerHTML += `<button id="modification" onclick="changeToModifyForum()">change</button>`;
     }
 }
 
