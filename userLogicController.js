@@ -54,6 +54,8 @@ function replaceLogoutButton(){
     <input type="submit" name="enviar" value="login" onclick="login()"/>`
 }
 
+replaceLogoutButton();
+/*
 function RunOnlyOnceReplaceLogoutLoginButton(){
     if(sessionStorage.getItem('Logged')=="false"){
         replaceLogoutButton();
@@ -62,7 +64,7 @@ function RunOnlyOnceReplaceLogoutLoginButton(){
         replaceLoginButton();
 }
 
-RunOnlyOnceReplaceLogoutLoginButton()
+RunOnlyOnceReplaceLogoutLoginButton()*/
 
 function removeAddButton(){
     for(let i =0; i<mainBodyElements.length; i++){
@@ -83,18 +85,3 @@ function removeRemoveButton(){
         articlesList[i].removeChild(document.getElementById("remove"));
     }
 }
-
-function addNewElement(){
-
-}
-
-function modifyElement(){
-
-}
-
-function removeElement(){
-    var grandparendNode = this.parentNode.parentNode;
-    console.log(grandparendNode)
-}
-
-removeElement();

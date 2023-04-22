@@ -49,6 +49,7 @@ function onLoad(){
     this.loadProductList();
 }
 
+
 function loadPersonList(){
     personList = JSON.parse(localStorage.getItem("personList"));
     
@@ -71,7 +72,7 @@ function loadProductList(){
     productList = JSON.parse(localStorage.getItem("productList"));
     
 
-    for(let i=0; i<personList.length; i++){
+    for(let i=0; i<productList.length; i++){
         productBody.innerHTML += Product.toIndexHTML(productList[i]) ;
     }
 }
