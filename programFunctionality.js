@@ -56,9 +56,7 @@ function comprobarDatosRepetidos(name){
     let addingListType = JSON.parse(sessionStorage.getItem("actualAddingButtonList"))
     let localstorageList = JSON.parse(localStorage.getItem(addingListType))
     
-    for(let i =0; i<localstorageList.length; i++){
-        localstorageList = localstorageList.filter(item => item.name.toLowerCase() === name.toLowerCase())
-    }
+    localstorageList = localstorageList.filter(item => item.name.toLowerCase() === name.toLowerCase())
     
     if(localstorageList != 0){
         alert("El  introducido ya existe en la aplicación")
