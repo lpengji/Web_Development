@@ -6,6 +6,7 @@ const autorImageBody = document.querySelector(".autorImage")
 const iFrameBody = document.querySelector("iframe")
 const titleBody = document.querySelector("title")
 
+// anotar la lista a operar y redirigir a la pagina de createNewElement
 function changeToCreateForum(){
     let addingButton = event.target;
     let actualAddingButtonList = addingButton.parentNode.className + "List"
@@ -14,6 +15,7 @@ function changeToCreateForum(){
     window.location.href = "createNewElementForum.html"
 }
 
+// verifica y añade el nuevo elemento 
 function addNewElement(){
     let name = document.getElementById("name").value;
     let birthDate = document.getElementById("birthDate").value;
@@ -66,6 +68,7 @@ function comprobarDatosRepetidos(name){
     return datoRepetido
 }
 
+// anotar la lista a operar y redirigir a la pagina de changeElementForum
 function changeToModifyForum(){
     let addingButton = event.target;
     let actualAddingButtonList = [addingButton.parentNode.parentNode.className + "List",addingButton.parentNode.className]
@@ -73,6 +76,7 @@ function changeToModifyForum(){
     window.location.href = "changeElementForum.html"
 }
 
+// verifica y modifica el elemento seleccionado
 function modifyElement(){
     let name = document.getElementById("name").value;
     let birthDate = document.getElementById("birthDate").value;
@@ -100,14 +104,13 @@ function modifyElement(){
     currentObject[0].imageURL = "img/"+imageURL
     currentObject[0].wikiURL = wikiURL
 
-    
-
     localStorage.setItem(currentListType,JSON.stringify(currentList))
 
     window.location.href="index.html"
     
 }
 
+// elimina el elemento seleccionado
 function removeElement(){
     let actualButton = event.target;
     let actualListType = actualButton.parentNode.parentNode.className + "List";
@@ -121,6 +124,7 @@ function removeElement(){
     location.reload();
 }
 
+// anota la lista que va a operar en reloadHTMLPage()
 function createHTMLPage(){
     let lastclickedEvent = event.target;
     let lastclickedEventListType = lastclickedEvent.parentNode.parentNode.className + "List";
@@ -132,6 +136,7 @@ function createHTMLPage(){
     sessionStorage.setItem("lastclickedEventList",JSON.stringify(lastclickedEventList));
 }
 
+// carga y crea dinamicamente la pagina HTML 
 function reloadHTMLPage(){
     lastclicked = JSON.parse(sessionStorage.getItem("lastclickedEventList"))
 

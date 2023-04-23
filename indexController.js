@@ -49,34 +49,34 @@ function onLoad(){
     this.loadProductList();
 }
 
-
+// cargar las personas
 function loadPersonList(){
     personList = JSON.parse(localStorage.getItem("personList"));
     
-
     for(let i=0; i<personList.length; i++){
         personBody.innerHTML += Person.toIndexHTML(personList[i]) ;
     }
 }
 
+// cargar las entidades
 function loadEntityList(){
     entityList = JSON.parse(localStorage.getItem("entityList"));
     
-
     for(let i=0; i<entityList.length; i++){
         entityBody.innerHTML += Entity.toIndexHTML(entityList[i]) ;
     }
 }
 
+// cargar los productos
 function loadProductList(){
     productList = JSON.parse(localStorage.getItem("productList"));
-    
 
     for(let i=0; i<productList.length; i++){
         productBody.innerHTML += Product.toIndexHTML(productList[i]) ;
     }
 }
 
+// cargar los datos para la modificación
 function loadData(){
     let name = document.getElementById("name");
     let birthDate = document.getElementById("birthDate");

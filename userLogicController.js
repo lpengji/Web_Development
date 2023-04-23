@@ -2,7 +2,7 @@ const loginBody = document.querySelector(".login");
 const mainBody = document.querySelector("main");
 const mainBodyElements = mainBody.children;
 
-
+// cargar los elemento al hacer login
 function login(){
     //sessionStorage.setItem("Logged",true);
     this.replaceLoginButton();
@@ -11,10 +11,12 @@ function login(){
     this.addRemoveButton();
 }
 
+// añadir boton logout
 function replaceLoginButton(){
     loginBody.innerHTML = `<button onclick="logout()">logout</button>`
 }
 
+// añadir boton add
 function addAddButton(){
     let type;
     for(let i =0; i<mainBodyElements.length; i++){
@@ -23,6 +25,7 @@ function addAddButton(){
     }
 }
 
+// añadir boton modificacion
 function addModificationButton(){
     const articlesList = document.querySelectorAll("article");
     for(let i =0; i<articlesList.length; i++){
@@ -30,6 +33,7 @@ function addModificationButton(){
     }
 }
 
+// añadir boton delete
 function addRemoveButton(){
     const articlesList = document.querySelectorAll("article");
     for(let i =0; i<articlesList.length; i++){
@@ -37,6 +41,7 @@ function addRemoveButton(){
     }
 }
 
+// cargar los elemento al hacer logout
 function logout(){
     //sessionStorage.setItem("Logged",false);
     this.replaceLogoutButton();
@@ -45,6 +50,7 @@ function logout(){
     this.removeRemoveButton();
 }
 
+// añadir input y boton login
 function replaceLogoutButton(){
     loginBody.innerHTML = 
     `<label for="campoUsuario">Usuario:</label>
