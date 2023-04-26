@@ -5,33 +5,35 @@ const entityBody = document.querySelector(".entity");
 let personList = [];
 let entityList = [];
 let productList = [];
+let relationList = []
 
 // carga los objetos por defecto al localStorage
 function previousSetValues(){
     //sessionStorage.setItem("Logged",false);
 
+
     personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
-    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg"));
+    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg",["CERN"],["HTML"]));
 
     entityList.push(new Entity("CERN",new Date(1954,7,29),
-    "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear","cern.png"));
+    "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear",
+    "cern.png",["Tim Berners Lee"],["HTML"]));
 
     productList.push(new Product("HTML",new Date(1991,10,29),
-    "none","https://es.wikipedia.org/wiki/HTML","html.png"))
+    "none","https://es.wikipedia.org/wiki/HTML","html.png",["Tim Berners Lee"],["CERN"],))
 
-    personList.push(new Person("A",new Date(1995,6,8),
-    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg"));
-
-    entityList.push(new Entity("b",new Date(1954,7,29),
-    "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear","cern.png"));
-
-    productList.push(new Product("c",new Date(1991,10,29),
-    "none","https://es.wikipedia.org/wiki/HTML","html.png"))
 
     localStorage.setItem("personList",JSON.stringify(personList));
     localStorage.setItem("entityList",JSON.stringify(entityList));
-    localStorage.setItem("productList",JSON.stringify(productList))
+    localStorage.setItem("productList",JSON.stringify(productList));
+
+    relationList.push(new Relation("Tim Berners Lee","personList"))
+    relationList.push(new Relation("CERN","entityList"))
+    relationList.push(new Relation("HTML","productList"))
+
+    localStorage.setItem("relation",JSON.stringify(relationList))
 }
+
 
 function runOnlyOnceSetDefaultValues(){
     if(!sessionStorage.getItem("doneLoadingData")){
@@ -84,12 +86,10 @@ function loadData(){
     let imageURL = document.getElementById("imageURL");
     let wikiURL = document.getElementById("wikiURL");
 
-    let listToLoad = JSON.parse(sessionStorage.getItem("actualAddingButtonList"))
-    let currentListType = listToLoad[0];
-    let currentList = JSON.parse(localStorage.getItem(currentListType))
-    let currentData = listToLoad[1];
+    let currentChangingObject = JSON.parse(sessionStorage.getItem("actualChangingElement")) 
+    let currentList = JSON.parse(localStorage.getItem(getRelatedListType(currentChangingObject)))
 
-    currentObject = currentList.filter(item => item.name === currentData)
+    let currentObject = currentList.filter(item => item.name === currentChangingObject)
 
     name.value = currentObject[0].name;
     birthDate.value = currentObject[0].birthDate;

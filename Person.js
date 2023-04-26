@@ -1,59 +1,45 @@
-class Person{
-    #name;
-    #birthDate;
-    #deathDate;
-    #imageURL;
-    #wikiURL;    
+class Person extends Element{ 
 
-    constructor(name,birthDate,deathDate,wikiURL,imageURL){
-        this.name = name;
-        this.birthDate = birthDate;
-        this.deathDate = deathDate;
-        this.wikiURL = wikiURL;
-        this.imageURL = "img/"+imageURL;
+    entityList = []
+    productList = []
+
+    constructor(name,birthDate,deathDate,wikiURL,imageURL, entityList, productList){
+        super(name,birthDate,deathDate,wikiURL,imageURL)
+        this.entityList = entityList;
+        this.productList = productList;
     }
 
-    setName(name){
-        this.#name=name;
-    }
-    getName(){
-        return this.#name;
+    static generateEntityList(lastclicked,originListType){
+        var returningString=" ";
+        var lastclickedEntityRelatedList = lastclicked[0].entityList;
+        var entityList;
+        var actualName;
+        for(var i=0; i<lastclickedEntityRelatedList.length; i++){
+            entityList = JSON.parse(localStorage.getItem(originListType))
+            actualName = lastclickedEntityRelatedList[0];
+            entityList = entityList.filter(item => item.name === actualName)
+
+            returningString = returningString + `<img src=`+entityList[0].imageURL+` height="45" /> 
+            <a href="plantilla.html" onclick="reloadHTMLPage()">`+entityList[0].name+`</a><br>`
+        }
+        
+        return returningString
     }
 
-    setBirthDate(birthDate){
-        this.#birthDate=birthDate;
-    }
-    getBirthDate(){
-        return this.#birthDate;
-    }
+    static generateProductList(lastclicked,originListType){
+        var returningString=" ";
+        var lastclickedProductRelatedList = lastclicked[0].productList;
+        var productList;
+        var actualName;
+        for(var i=0; i<lastclickedProductRelatedList.length; i++){
+            productList = JSON.parse(localStorage.getItem(originListType))
+            actualName = lastclickedProductRelatedList[0];
+            productList = productList.filter(item => item.name === actualName)
 
-    setDeathDate(deathDate){
-        this.#deathDate=deathDate;
+            returningString = returningString + `<img src=`+productList[0].imageURL+` height="45" /> 
+            <a href="plantilla.html" onclick="reloadHTMLPage()">`+productList[0].name+`</a><br>`
+        }
+        
+        return returningString
     }
-    getDeathDate(){
-        return this.#deathDate;
-    }
-
-    setImageURL(imageURL){
-        this.#imageURL="img/"+imageURL;
-    }
-    getImageURL(){
-        return this.#imageURL;
-    }
-
-    setWikiURL(wikiURL){
-        this.#wikiURL=wikiURL;
-    }
-    getWikiURL(){
-        return this.#wikiURL;
-    }
-
-    static toIndexHTML(person){
-
-        var destination = "plantilla.html";
-        return `<article class="`+person.name+`"><img src=`+person.imageURL+` height="45" /> 
-        <a href="`+destination+`" onclick="createHTMLPage()">`+person.name+`</a><br></article>
-        `
-    }
-
 }
