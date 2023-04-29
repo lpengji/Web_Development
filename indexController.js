@@ -13,13 +13,23 @@ function previousSetValues(){
 
 
     personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
-    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg",["CERN"],["HTML"]));
+    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg",["CERN","2"],["HTML","3"]));
 
     entityList.push(new Entity("CERN",new Date(1954,7,29),
     "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear",
-    "cern.png",["Tim Berners Lee"],["HTML"]));
+    "cern.png",["Tim Berners Lee","1"],["HTML","3"]));
 
     productList.push(new Product("HTML",new Date(1991,10,29),
+    "none","https://es.wikipedia.org/wiki/HTML","html.png",["Tim Berners Lee","1"],["CERN","2"],))
+
+    personList.push(new Person("1",new Date(1995,6,8),
+    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg",["CERN"],["HTML"]));
+
+    entityList.push(new Entity("2",new Date(1954,7,29),
+    "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear",
+    "cern.png",["Tim Berners Lee"],["HTML"]));
+
+    productList.push(new Product("3",new Date(1991,10,29),
     "none","https://es.wikipedia.org/wiki/HTML","html.png",["Tim Berners Lee"],["CERN"],))
 
 
@@ -30,10 +40,12 @@ function previousSetValues(){
     relationList.push(new Relation("Tim Berners Lee","personList"))
     relationList.push(new Relation("CERN","entityList"))
     relationList.push(new Relation("HTML","productList"))
+    relationList.push(new Relation("1","personList"))
+    relationList.push(new Relation("2","entityList"))
+    relationList.push(new Relation("2","productList"))
 
     localStorage.setItem("relation",JSON.stringify(relationList))
 }
-
 
 function runOnlyOnceSetDefaultValues(){
     if(!sessionStorage.getItem("doneLoadingData")){

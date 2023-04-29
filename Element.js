@@ -54,4 +54,16 @@ class Element {
         <a href="`+destination+`" onclick="createHTMLPage()">`+person.name+`</a><br></article>
         `
     }
+
+    static generateRelatedList(relatedList,RelatedListType){
+        
+        let originalRelatedList = JSON.parse(localStorage.getItem(RelatedListType));
+        let returningString =" "
+        for(let i=0; i<relatedList.length; i++){
+            let actualRelatedElement = originalRelatedList.filter(item => item.name === relatedList[i])
+            returningString +=`<div class="`+relatedList[i]+`"><img src=`+actualRelatedElement[0].imageURL+` height="45" /> 
+            <a href="plantilla.html" onclick="createHTMLPage()">`+actualRelatedElement[0].name+`</a></div>`
+        }
+        return returningString
+    }
 }

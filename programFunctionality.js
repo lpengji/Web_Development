@@ -71,8 +71,6 @@ function comprobarDatosRepetidos(name){
     return datoRepetido
 }
 
-
-
 // anotar la lista a operar y redirigir a la pagina de changeElementForum
 function changeToModifyForum(){
     let addingButton = event.target;
@@ -143,6 +141,7 @@ function createHTMLPage(){
     elementList = elementList.filter(item => item.name === lastclickedEventClassName)
 
     sessionStorage.setItem("lastUsedList",JSON.stringify(elementList))
+    
 }
 // carga y crea dinamicamente la pagina HTML 
 function reloadHTMLPage(){
@@ -158,32 +157,35 @@ function reloadHTMLPage(){
     titleBody.innerHTML = elementList[0].name
 
     
-    //generateFooter();
+    generateFooter();
     
 }
 
-
 function generateFooter(){
-    lastclickedEventListType = JSON.parse(sessionStorage.getItem("lastclickedEventListType"))
-    lastclicked = JSON.parse(sessionStorage.getItem("lastclickedEventList"))
     
-    if(lastclickedEventListType === "productList" ){
+    let actualVisitingElement = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].name
+
+    let relatedPersonList = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].personList
+    let relatedEntityList = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].entityList
+    let relatedProductList = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].productList
+
+    if(getRelatedListType(actualVisitingElement) === "productList" ){
         leftFooterBody.innerHTML += "Personas"
         rightFooterBody.innerHTML += "Entidades"
-        leftFooterBody.innerHTML += Product.generatePersonList(lastclicked,"personList");
-        rightFooterBody.innerHTML += Product.generateEntityList(lastclicked,"entityList");
+        leftFooterBody.innerHTML += Product.generateRelatedList(relatedPersonList,"personList");
+        rightFooterBody.innerHTML += Entity.generateRelatedList(relatedEntityList,"entityList");
     }
-    else if(lastclickedEventListType === "personList" ){
+    else if(getRelatedListType(actualVisitingElement) === "personList" ){
         leftFooterBody.innerHTML += "Entidades"
         rightFooterBody.innerHTML += "Productos"
-        leftFooterBody.innerHTML += Person.generateEntityList(lastclicked,"entityList");
-        rightFooterBody.innerHTML += Person.generateProductList(lastclicked,"productList");
+        leftFooterBody.innerHTML += Person.generateRelatedList(relatedEntityList,"entityList");
+        rightFooterBody.innerHTML += Product.generateRelatedList(relatedProductList,"productList");
     }
-    else if(lastclickedEventListType === "entityList" ){
+    else if(getRelatedListType(actualVisitingElement) === "entityList" ){
         leftFooterBody.innerHTML += "Productos"
         rightFooterBody.innerHTML += "Personas"
-        leftFooterBody.innerHTML += Entity.generateProductList(lastclicked,"productList");
-        rightFooterBody.innerHTML += Entity.generatePersonList(lastclicked,"personList");
+        leftFooterBody.innerHTML += Product.generateRelatedList(relatedProductList,"productList");
+        rightFooterBody.innerHTML += Person.generateRelatedList(relatedPersonList,"personList");
     }
 }
 
