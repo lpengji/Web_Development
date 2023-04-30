@@ -155,12 +155,11 @@ function reloadHTMLPage(){
     autorImageBody.setAttribute("src",elementList[0].imageURL);
     iFrameBody.setAttribute("src",elementList[0].wikiURL);
     titleBody.innerHTML = elementList[0].name
-
     
-    generateFooter();
-    
+    generateFooter();    
 }
 
+// genera los elementos relacionados en el footer 
 function generateFooter(){
     
     let actualVisitingElement = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].name
@@ -168,6 +167,9 @@ function generateFooter(){
     let relatedPersonList = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].personList
     let relatedEntityList = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].entityList
     let relatedProductList = JSON.parse(sessionStorage.getItem("lastUsedList"))[0].productList
+
+    leftFooterBody.innerHTML = `<button onclick="addRelation()">add</button> ` 
+    rightFooterBody.innerHTML= `<button onclick="addRelation()">add</button> `
 
     if(getRelatedListType(actualVisitingElement) === "productList" ){
         leftFooterBody.innerHTML += "Personas"
@@ -187,6 +189,38 @@ function generateFooter(){
         leftFooterBody.innerHTML += Product.generateRelatedList(relatedProductList,"productList");
         rightFooterBody.innerHTML += Person.generateRelatedList(relatedPersonList,"personList");
     }
+
+    generateRemoveButton();
+}
+
+// genera los botones para eliminar los elementos relacionados
+function generateRemoveButton(){
+    const relationBody = document.querySelectorAll("#relationDiv")
+    for(let i =0; i<relationBody.length; i++){
+        relationBody[i].innerHTML += ` <button onclick="removeRelatedElement()">remove</button>`;
+    }
+}
+
+// elimina el elemento pulsado 
+function removeRelatedElement(){
+    let actualElement = document.querySelector("title").textContent
+    let actualRelatedElement = event.target.parentNode.className
+    
+    let actualElementList = JSON.parse(localStorage.getItem(getRelatedListType(actualElement)))
+    let actualRelatedElementList = JSON.parse(localStorage.getItem(getRelatedListType(actualRelatedElement)))
+
+    let actualObject = actualElementList.filter(item => item.name === actualElement)
+    actualObject[0][getRelatedListType(actualRelatedElement)] = actualObject[0][getRelatedListType(actualRelatedElement)].filter(item => item !== actualRelatedElement)
+
+    let actualRelatedObject = actualRelatedElementList.filter(item => item.name === actualRelatedElement)
+    actualRelatedObject[0][getRelatedListType(actualElement)] = actualRelatedObject[0][getRelatedListType(actualElement)].filter(item => item !== actualElement)
+
+    
+    localStorage.setItem(getRelatedListType(actualElement),JSON.stringify(actualElementList))
+    localStorage.setItem(getRelatedListType(actualRelatedElement),JSON.stringify(actualRelatedElementList))
+    sessionStorage.setItem("lastUsedList",JSON.stringify(actualObject))
+
+    location.reload();
 }
 
 //retorna el tipo de lista segun el valor elementName
@@ -224,4 +258,3 @@ function removeRelation(oldName){
 
     localStorage.setItem("relation",JSON.stringify(relationList))
 }
-
