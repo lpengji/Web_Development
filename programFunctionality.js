@@ -270,8 +270,12 @@ function generateFooter(){
     let relatedEntityList = elementList[0].entityList
     let relatedProductList = elementList[0].productList
 
-    leftFooterBody.innerHTML = `<button onclick="addRelation()">add</button> ` 
-    rightFooterBody.innerHTML= `<button onclick="addRelation()">add</button> `
+    let state = JSON.parse(sessionStorage.getItem("Logged"))
+    if (state){
+        leftFooterBody.innerHTML = `<button onclick="addRelation()">add</button> ` 
+        rightFooterBody.innerHTML= `<button onclick="addRelation()">add</button> `
+    }
+    
 
     if(getRelatedListType(actualVisitingElement) === "productList" ){
         leftFooterBody.innerHTML += "Personas"
@@ -298,7 +302,8 @@ function generateFooter(){
         rightFooterBody.innerHTML += Person.generateRelatedList(relatedPersonList,"personList");
     }
 
-    generateRemoveButton();
+    if(state)
+        generateRemoveButton();
 }
 
 // genera los botones para eliminar los elementos relacionados
