@@ -147,8 +147,13 @@ function modifyRelation(oldName, newName){
         secondRelatedList = actualObject[0].personList
     }
 
-    modifyOldRelation(oldName,newName,firtRelatedList)
-    modifyOldRelation(oldName,newName,secondRelatedList)
+    if(firtRelatedList.length !== 0){
+        modifyOldRelation(oldName,newName,firtRelatedList)
+    }
+    if(firtRelatedList.length !== 0){
+        modifyOldRelation(oldName,newName,secondRelatedList)
+    }
+    
 }
 
 // modifica la relacion que hay en la lista de relaciones de cada elemento involucrado
