@@ -102,6 +102,6 @@ function loadData(){
     name.value = currentObject[0].name;
     birthDate.value = currentObject[0].birthDate;
     deathDate.value = currentObject[0].deathDate;
-    imageURL.value = currentObject[0].imageURL.substring(4);
+    imageURL.value = currentObject[0].imageURL.substring(7);
     wikiURL.value = currentObject[0].wikiURL;
 }

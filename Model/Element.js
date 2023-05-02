@@ -10,7 +10,7 @@ class Element {
         this.birthDate = birthDate;
         this.deathDate = deathDate;
         this.wikiURL = wikiURL;
-        this.imageURL = "img/"+imageURL;
+        this.imageURL = "../img/"+imageURL;
     }
 
     setName(name){
@@ -35,7 +35,7 @@ class Element {
     }
 
     setImageURL(imageURL){
-        this.#imageURL="img/"+imageURL;
+        this.#imageURL="../img/"+imageURL;
     }
     getImageURL(){
         return this.#imageURL;

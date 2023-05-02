@@ -115,7 +115,7 @@ function modifyElement(){
     currentObject[0].name = name
     currentObject[0].birthDate = birthDate
     currentObject[0].deathDate = deathDate
-    currentObject[0].imageURL = "img/"+imageURL
+    currentObject[0].imageURL = "../img/"+imageURL
     currentObject[0].wikiURL = wikiURL
 
     modifyRelation(actualChangingElement,name)
@@ -150,7 +150,7 @@ function modifyRelation(oldName, newName){
     if(firtRelatedList.length !== 0){
         modifyOldRelation(oldName,newName,firtRelatedList)
     }
-    if(firtRelatedList.length !== 0){
+    if(secondRelatedList.length !== 0){
         modifyOldRelation(oldName,newName,secondRelatedList)
     }
     
