@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="../style.css"/>
+    <title>anales de la ciencia</title>
+</head>
+
+<body>
+    <nav><a href="index.html">Inicio</a></nav>
+        
+    <main>
+        <section class = "newElementForum">
+            <label for="name">Nombre:</label>
+            <input id="name" type="text" name="name"/>
+
+            <label for="birthDate">Fecha nacimiento:</label>
+            <input id="birthDate" type="date" name="birthDate"/>
+        
+            <label for="deathDate">Fecha fallecimiento:</label>
+            <input id="deathDate" type="date" name="deathDate" placeholder="dejar en blanco si no existe"/> 
+
+            <label for="imageURL">Imagen(nombre.formato)(guardar la imagen en la carpeta img):</label>
+            <input id="imageURL" type="text" name="imageURL"/>
+        
+            <label for="wikiURL">WIKI URL:</label>
+            <input id="wikiURL" type="text" name="wikiURL"/>
+        
+            <input type="submit" name="enviar" value="confirmar" onclick="addNewElement()"/>
+        </section>
+        
+    </main>
+
+    <script src="../Model/Relation.js"></script>
+    <script src="../Model/Element.js"></script>
+    <script src="../Model/Person.js"></script>
+    <script src="../Model/Entity.js"></script>
+    <script src="../Model/Product.js"></script>
+    <script src="../Controller/programFunctionality.js"></script>
+
+</body>
+</html>
