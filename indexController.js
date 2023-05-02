@@ -5,12 +5,20 @@ const entityBody = document.querySelector(".entity");
 let personList = [];
 let entityList = [];
 let productList = [];
-let relationList = []
+let relationList = [];
+
+let user ={
+    "x" : "x",
+    "y" : "y",
+    "z" : "z"
+};
 
 // carga los objetos por defecto al localStorage
 function previousSetValues(){
-    //sessionStorage.setItem("Logged",false);
+    sessionStorage.setItem("Logged",false);
+    sessionStorage.setItem("FirstLoged",false)
 
+    localStorage.setItem("user",JSON.stringify(user))
 
     personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
     "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg",["CERN"],["HTML"]));
@@ -48,6 +56,7 @@ function onLoad(){
     this.loadPersonList();
     this.loadEntityList();
     this.loadProductList();
+    loginLogoutController()
 }
 
 // cargar las personas
