@@ -51,7 +51,7 @@ class Element {
     // retorna la imagen y nombre del elemento en formato HTML
     static toIndexHTML(person){
         var destination = "plantilla.html";
-        return `<article class="`+person.name+`"><img src=`+person.imageURL+` height="45" /> 
+        return `<article class="`+person.name+`"><img src="`+person.imageUrl+`" height="45" /> 
         <a href="`+destination+`" onclick="createHTMLPage()">`+person.name+`</a><br></article>
         `
     }

@@ -20,25 +20,6 @@ function previousSetValues(){
 
     localStorage.setItem("user",JSON.stringify(user))
 
-    personList.push(new Person("Tim Berners Lee",new Date(1995,6,8),
-    "none","https://es.wikipedia.org/wiki/Tim_Berners-Lee","TimBernersLee.jpeg",["CERN"],["HTML"]));
-
-    entityList.push(new Entity("CERN",new Date(1954,7,29),
-    "none","https://es.wikipedia.org/wiki/Organizaci%C3%B3n_Europea_para_la_Investigaci%C3%B3n_Nuclear",
-    "cern.png",["Tim Berners Lee"],["HTML"]));
-
-    productList.push(new Product("HTML",new Date(1991,10,29),
-    "none","https://es.wikipedia.org/wiki/HTML","html.png",["Tim Berners Lee"],["CERN"],))
-
-
-    localStorage.setItem("personList",JSON.stringify(personList));
-    localStorage.setItem("entityList",JSON.stringify(entityList));
-    localStorage.setItem("productList",JSON.stringify(productList));
-
-    relationList.push(new Relation("Tim Berners Lee","personList"))
-    relationList.push(new Relation("CERN","entityList"))
-    relationList.push(new Relation("HTML","productList"))
-
     localStorage.setItem("relation",JSON.stringify(relationList))
 }
 
@@ -61,29 +42,63 @@ function onLoad(){
 
 // cargar las personas
 function loadPersonList(){
-    personList = JSON.parse(localStorage.getItem("personList"));
+    let personList
     
-    for(let i=0; i<personList.length; i++){
-        personBody.innerHTML += Person.toIndexHTML(personList[i]) ;
-    }
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/v1/persons",
+        type: "GET",
+        success: function(response){
+            personList = response.persons
+            for(let i=0; i<personList.length; i++){
+                personBody.innerHTML += Person.toIndexHTML(personList[i].person) ;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error in request');
+            console.log(error); // Handle the error here
+          }
+    });
+ 
 }
 
 // cargar las entidades
 function loadEntityList(){
-    entityList = JSON.parse(localStorage.getItem("entityList"));
+    let entityList
     
-    for(let i=0; i<entityList.length; i++){
-        entityBody.innerHTML += Entity.toIndexHTML(entityList[i]) ;
-    }
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/v1/entities",
+        type: "GET",
+        success: function(response){
+            entityList = response.entities
+            for(let i=0; i<entityList.length; i++){
+                entityBody.innerHTML += Entity.toIndexHTML(entityList[i].entity) ;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error in request');
+            console.log(error); // Handle the error here
+          }
+    });
 }
 
 // cargar los productos
 function loadProductList(){
-    productList = JSON.parse(localStorage.getItem("productList"));
-
-    for(let i=0; i<productList.length; i++){
-        productBody.innerHTML += Product.toIndexHTML(productList[i]) ;
-    }
+    let productList
+    
+    $.ajax({
+        url: "http://127.0.0.1:8000/api/v1/products",
+        type: "GET",
+        success: function(response){
+            productList = response.products
+            for(let i=0; i<productList.length; i++){
+                productBody.innerHTML += Product.toIndexHTML(productList[i].product) ;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error in request');
+            console.log(error); // Handle the error here
+          }
+    });
 }
 
 // cargar los datos para la modificación
