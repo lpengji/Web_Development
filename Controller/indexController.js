@@ -44,19 +44,14 @@ function onLoad(){
 function loadPersonList(){
     let personList
     
-    $.ajax({
-        url: "http://127.0.0.1:8000/api/v1/persons",
-        type: "GET",
-        success: function(response){
-            personList = response.persons
-            for(let i=0; i<personList.length; i++){
-                personBody.innerHTML += Person.toIndexHTML(personList[i].person) ;
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log('Error in request');
-            console.log(error); // Handle the error here
-          }
+    BDPerson.getPersonList().then(function(response) {
+        personList = response.persons
+        for(let i=0; i<personList.length; i++){
+            personBody.innerHTML += Person.toIndexHTML(personList[i].person,"persons") ;
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
     });
  
 }
@@ -65,19 +60,14 @@ function loadPersonList(){
 function loadEntityList(){
     let entityList
     
-    $.ajax({
-        url: "http://127.0.0.1:8000/api/v1/entities",
-        type: "GET",
-        success: function(response){
-            entityList = response.entities
-            for(let i=0; i<entityList.length; i++){
-                entityBody.innerHTML += Entity.toIndexHTML(entityList[i].entity) ;
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log('Error in request');
-            console.log(error); // Handle the error here
-          }
+    BDEntity.getEntityList().then(function(response) {
+        entityList = response.entities
+        for(let i=0; i<entityList.length; i++){
+            entityBody.innerHTML += Entity.toIndexHTML(entityList[i].entity,"entities") ;
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
     });
 }
 
@@ -85,19 +75,14 @@ function loadEntityList(){
 function loadProductList(){
     let productList
     
-    $.ajax({
-        url: "http://127.0.0.1:8000/api/v1/products",
-        type: "GET",
-        success: function(response){
-            productList = response.products
-            for(let i=0; i<productList.length; i++){
-                productBody.innerHTML += Product.toIndexHTML(productList[i].product) ;
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log('Error in request');
-            console.log(error); // Handle the error here
-          }
+    BDProduct.getProductList().then(function(response) {
+        productList = response.products
+        for(let i=0; i<productList.length; i++){
+            productBody.innerHTML += Product.toIndexHTML(productList[i].product,"products") ;
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
     });
 }
 

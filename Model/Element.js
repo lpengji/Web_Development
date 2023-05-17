@@ -49,10 +49,10 @@ class Element {
     }
 
     // retorna la imagen y nombre del elemento en formato HTML
-    static toIndexHTML(person){
+    static toIndexHTML(element,type){
         var destination = "plantilla.html";
-        return `<article class="`+person.name+`"><img src="`+person.imageUrl+`" height="45" /> 
-        <a href="`+destination+`" onclick="createHTMLPage()">`+person.name+`</a><br></article>
+        return `<article class="`+element.name+`" data-type="`+type+`"><img src="`+element.imageUrl+`" height="45" /> 
+        <a href="`+destination+`" onclick="reloadHTMLPage()">`+element.name+`</a><br></article>
         `
     }
 
@@ -64,7 +64,7 @@ class Element {
         for(let i=0; i<relatedList.length; i++){
             let actualRelatedElement = originalRelatedList.filter(item => item.name === relatedList[i])
             returningString +=`<div id="relationDiv" class="`+relatedList[i]+`"><img src=`+actualRelatedElement[0].imageURL+` height="45" /> 
-            <a href="plantilla.html" onclick="createHTMLPage()">`+actualRelatedElement[0].name+`</a></div>`
+            <a href="plantilla.html" onclick="reloadHTMLPage()">`+actualRelatedElement[0].name+`</a></div>`
         }
         return returningString
     }
