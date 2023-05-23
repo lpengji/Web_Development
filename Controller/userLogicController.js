@@ -3,22 +3,32 @@ const mainBody = document.querySelector("main");
 const mainBodyElements = mainBody.children;
 const userInfo = document.querySelector("userInfo");
 
-// comprobar si el usuario se ha logeado
-function loginLogoutController(){
-    let state = sessionStorage.getItem("response")
-    let firstLoged = JSON.parse(sessionStorage.getItem("FirstLoged")) 
+let isWriter = JSON.parse(sessionStorage.getItem("isWriter"));
 
-    if(state !== null && state !== undefined && state !== ""){
-        this.replaceLoginButton();
+function runOnlyOnceSetDefaultValues(){
+    if (loginBody.innerHTML.trim() === '') {
+        this.replaceLogoutButton();
+    } 
+}
+
+runOnlyOnceSetDefaultValues();
+
+// si el usuario se ha logeado y es writer
+function loginController(){
+    this.replaceLoginButton();
+    if(isWriter){
         this.addAddButton();
         this.addModificationButton();
         this.addRemoveButton();
-    }else{
-        this.replaceLogoutButton();
+    }
+}
+
+function logoutController(){
+    this.replaceLogoutButton();
+    if(isWriter){
         this.removeAddButton();
         this.removeModificationButton();
         this.removeRemoveButton();
-        
     }
 }
 
@@ -29,12 +39,26 @@ function login(){
     
     BDUser.login(user,password).then(function(response) {
         sessionStorage.setItem("response",JSON.stringify(response));
-        sessionStorage.setItem("FirstLoged",true)
-        loginLogoutController();
+        checkIsWriter(user).then(function(){
+            loginController();
+            location.reload();
+        });
     }).catch(function(error) {
         alert(error.responseJSON.error_description);
-        // Código a ejecutar en caso de error
     });
+}
+
+function checkIsWriter(username){
+    return new Promise(function(resolve, reject) {
+        BDUser.getUserInfoByName(username)
+          .then(function(user) {
+            sessionStorage.setItem("isWriter",user.role === "WRITER")
+            resolve();
+          })
+          .catch(function(error) {
+            reject(error);
+          });
+      });
 }
 
 // añadir boton logout
@@ -70,7 +94,8 @@ function addRemoveButton(){
 // cargar los elemento al hacer logout
 function logout(){
     sessionStorage.clear();
-    loginLogoutController()
+    logoutController()
+    location.reload();
 }
 
 // añadir input y boton login

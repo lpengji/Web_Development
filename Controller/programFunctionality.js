@@ -9,7 +9,6 @@ const leftFooterBody = document.querySelector(".leftImage");
 const rightFooterBody = document.querySelector(".rightImage")
 const footerBody = document.querySelector("footer")
 
-let state = sessionStorage.getItem("response")
 let currentVisitingElementType = JSON.parse(sessionStorage.getItem("currentVisitingElementType"))
 let currentElementId = JSON.parse(sessionStorage.getItem("currentVisitingElementId"))
 
@@ -167,7 +166,8 @@ function reloadHTMLPage(){
             titleBody.innerHTML = currentElement.name
 
             generateFooter(currentElement).then(function(){
-                if(state !== null && state !== undefined && state !== ""){
+                if(isWriter){
+                    console.log(isWriter)
                     generateRemoveButton();
                 } 
             }).catch(function(error){
@@ -190,7 +190,7 @@ function reloadHTMLPage(){
             titleBody.innerHTML = currentElement.name
 
             generateFooter(currentElement).then(function(){
-                if(state !== null && state !== undefined && state !== ""){
+                if(isWriter){
                     generateRemoveButton();
                 } 
             }).catch(function(error){
@@ -213,7 +213,7 @@ function reloadHTMLPage(){
             titleBody.innerHTML = currentElement.name
 
             generateFooter(currentElement).then(function(){
-                if(state !== null && state !== undefined && state !== ""){
+                if(isWriter){
                     generateRemoveButton();
                 } 
             }).catch(function(error){
@@ -233,7 +233,7 @@ function generateFooter(currentElement){
         let relatedEntityList = currentElement.entities
         let relatedProductList = currentElement.products
 
-        if(state !== null && state !== undefined && state !== ""){
+        if(isWriter){
             leftFooterBody.innerHTML = `<button onclick="addRelation()">add</button> ` 
             rightFooterBody.innerHTML= `<button onclick="addRelation()">add</button> `
         }

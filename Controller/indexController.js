@@ -2,29 +2,40 @@ const productBody = document.querySelector(".product");
 const personBody = document.querySelector(".person");
 const entityBody = document.querySelector(".entity");
 
+let state = sessionStorage.getItem("response")
 // carga los objetos por defecto al localStorage
-function previousSetValues(){
-    sessionStorage.setItem("FirstLoged",false)
-}
+// function previousSetValues(){
+//     sessionStorage.setItem("FirstLoged",false)
+// }
 
-function runOnlyOnceSetDefaultValues(){
-    if(!sessionStorage.getItem("doneLoadingData")){
-        previousSetValues();
-        sessionStorage.setItem("doneLoadingData","true");
+
+function showOnLoad(){
+    if(state !== null && state !== undefined && state !== ""){
+        productBody.style.display = "block";
+        personBody.style.display = "block";
+        entityBody.style.display = "block";
+    }else{
+        productBody.style.display = "none";
+        personBody.style.display = "none";
+        entityBody.style.display = "none";
     }
 }
 
-runOnlyOnceSetDefaultValues();
-
 // carga los contenidos del localStorage por pantalla
 function onLoad(){
-    Promise.all([loadPersonList(), loadEntityList(), loadProductList()])
-    .then(function() {
-        loginLogoutController();
-    })
-    .catch(function(error) {
-        console.error(error);
-    });
+    if(state !== null && state !== undefined && state !== ""){
+        Promise.all([loadPersonList(), loadEntityList(), loadProductList()])
+        .then(function() {
+            loginController();
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+    }else{
+        productBody.style.display = "none";
+        personBody.style.display = "none";
+        entityBody.style.display = "none";
+    }
 }
 
 // cargar las personas

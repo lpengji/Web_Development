@@ -1,4 +1,5 @@
 const LOGIN_URL_LINK = "http://127.0.0.1:8000/api/v1/access_token";
+const USER_URL_LINK = "http://127.0.0.1:8000/api/v1/users"
 
 class BDUser {
     static login(username, password) {
@@ -18,5 +19,42 @@ class BDUser {
                 }
             );
         });
+    }
+
+    static getAllUsers(){
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+              url: USER_URL_LINK,
+              method: 'GET',
+              headers:{
+                "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
+                +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
+            },
+              success: function(response) {
+                resolve(response.users);
+              },
+              error: function(xhr, status, error) {
+                reject(error);
+              }
+            });
+          });
+    }
+
+    static getUserInfoByName(username){
+        return new Promise(function(resolve, reject) {
+            BDUser.getAllUsers()
+              .then(function(users) {
+                for (let i = 0; i < users.length; i++) {
+                  if (users[i].user.username === username) {
+                    resolve(users[i].user);
+                    return;
+                  }
+                }
+                reject("No se encontró ningún usuario con ese nombre");
+              })
+              .catch(function(error) {
+                reject(error);
+              });
+          });
     }
 }
