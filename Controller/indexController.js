@@ -4,7 +4,6 @@ const entityBody = document.querySelector(".entity");
 
 // carga los objetos por defecto al localStorage
 function previousSetValues(){
-    sessionStorage.setItem("Logged",false);
     sessionStorage.setItem("FirstLoged",false)
 }
 

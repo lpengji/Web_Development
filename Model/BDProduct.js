@@ -115,4 +115,23 @@ class BDProduct {
             console.error("Error al obtener el ETag:", error);
         });
     }
+
+    static changeRelation(relatedElementType,relatedElementId,currentElementId,operation){
+        return new Promise(function(resolve,reject){
+            $.ajax({
+                url: Product_URL_LINK+`/${currentElementId}`+`/${relatedElementType}`+`/${operation}`+`/${relatedElementId}`,
+                type: 'PUT',
+                headers:{
+                    "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
+                    +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
+                },
+                success: function(response) {
+                  resolve();
+                },
+                error: function(error) {
+                  console.error('Error deleting relation:', error);
+                }
+            })
+        })
+    }
 }

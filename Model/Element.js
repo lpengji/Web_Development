@@ -57,15 +57,30 @@ class Element {
     }
 
     // retorna los elementos relacionado 
-    static generateRelatedList(relatedList,RelatedListType){
-        
-        let originalRelatedList = JSON.parse(localStorage.getItem(RelatedListType));
-        let returningString =''
-        for(let i=0; i<relatedList.length; i++){
-            let actualRelatedElement = originalRelatedList.filter(item => item.name === relatedList[i])
-            returningString +=`<div id="relationDiv" class="`+relatedList[i]+`"><img src=`+actualRelatedElement[0].imageURL+` height="45" /> 
-            <a href="plantilla.html" onclick="reloadHTMLPage()">`+actualRelatedElement[0].name+`</a></div>`
+    static generateRelatedList(relatedList, RelatedListType, dataType,state) {
+        let getElement = "BD" + RelatedListType + ".get" + RelatedListType + "ById";
+        let promises = [];
+    
+        for (let i = 0; i < relatedList.length; i++) {
+            let promise = eval(getElement)(relatedList[i])
+                .then(function(response) {
+                    return `<div id="${relatedList[i]}" class="relationDiv" data-type="`+dataType+`">
+                    <img src="../img/${response[RelatedListType.toLowerCase()].imageUrl}" height="45" />
+                    <a href="plantilla.html" onclick="createHTMLPage()">${response[RelatedListType.toLowerCase()].name}</a>
+                    </div>`;
+
+                })
+                .catch(function(error) {
+                    console.error(error);
+                    return ''; 
+                });
+    
+            promises.push(promise);
         }
-        return returningString
+    
+        return Promise.all(promises)
+        .then(function(results) {
+            return results.join('');
+        });
     }
 }

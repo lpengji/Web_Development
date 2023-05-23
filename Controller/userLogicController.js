@@ -1,24 +1,24 @@
 const loginBody = document.querySelector(".login");
 const mainBody = document.querySelector("main");
 const mainBodyElements = mainBody.children;
+const userInfo = document.querySelector("userInfo");
 
 // comprobar si el usuario se ha logeado
 function loginLogoutController(){
-    let state = JSON.parse(sessionStorage.getItem("Logged"))
+    let state = sessionStorage.getItem("response")
     let firstLoged = JSON.parse(sessionStorage.getItem("FirstLoged")) 
 
-    if(state){
+    if(state !== null && state !== undefined && state !== ""){
         this.replaceLoginButton();
         this.addAddButton();
         this.addModificationButton();
         this.addRemoveButton();
     }else{
         this.replaceLogoutButton();
-        if(firstLoged){
-            this.removeAddButton();
-            this.removeModificationButton();
-            this.removeRemoveButton();
-        }
+        this.removeAddButton();
+        this.removeModificationButton();
+        this.removeRemoveButton();
+        
     }
 }
 
@@ -26,16 +26,15 @@ function loginLogoutController(){
 function login(){
     let user = document.getElementById("campoUsuario").value
     let password = document.getElementById("campoContraseña").value
-    let userList = JSON.parse(localStorage.getItem("user"))
-
-    if (userList.hasOwnProperty(user) && userList[user] === password) {
-        sessionStorage.setItem("Logged",true);
+    
+    BDUser.login(user,password).then(function(response) {
+        sessionStorage.setItem("response",JSON.stringify(response));
         sessionStorage.setItem("FirstLoged",true)
-        loginLogoutController()
-    } 
-    else {
-        alert("accedo denegado")
-    }  
+        loginLogoutController();
+    }).catch(function(error) {
+        alert(error.responseJSON.error_description);
+        // Código a ejecutar en caso de error
+    });
 }
 
 // añadir boton logout
@@ -70,7 +69,7 @@ function addRemoveButton(){
 
 // cargar los elemento al hacer logout
 function logout(){
-    sessionStorage.setItem("Logged",false);
+    sessionStorage.clear();
     loginLogoutController()
 }
 
