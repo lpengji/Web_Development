@@ -2,16 +2,23 @@ const loginBody = document.querySelector(".login");
 const mainBody = document.querySelector("main");
 const mainBodyElements = mainBody.children;
 const userInfo = document.querySelector("userInfo");
+const userInformationBody = document.querySelector(".userInformation")
 
 let isWriter = JSON.parse(sessionStorage.getItem("isWriter"));
+let username = JSON.parse(sessionStorage.getItem("username"))
 
+//generar boton login al inicio
 function runOnlyOnceSetDefaultValues(){
     if (loginBody.innerHTML.trim() === '') {
         this.replaceLogoutButton();
     } 
 }
-
 runOnlyOnceSetDefaultValues();
+
+// generar comentario de bienvenida con informacion del usuario
+function loadUserInformation(){
+    userInformationBody.innerHTML +=`Bienvenido ${username}`
+}
 
 // si el usuario se ha logeado y es writer
 function loginController(){
@@ -39,6 +46,7 @@ function login(){
     
     BDUser.login(user,password).then(function(response) {
         sessionStorage.setItem("response",JSON.stringify(response));
+        sessionStorage.setItem("username",JSON.stringify(user))
         checkIsWriter(user).then(function(){
             loginController();
             location.reload();

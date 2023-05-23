@@ -24,6 +24,7 @@ function showOnLoad(){
 // carga los contenidos del localStorage por pantalla
 function onLoad(){
     if(state !== null && state !== undefined && state !== ""){
+        loadUserInformation()
         Promise.all([loadPersonList(), loadEntityList(), loadProductList()])
         .then(function() {
             loginController();
@@ -95,6 +96,7 @@ function loadProductList(){
 
 // cargar los datos para la modificación
 function loadData(){
+    loadUserInformation()
     let name = document.getElementById("name");
     let birthDate = document.getElementById("birthDate");
     let deathDate = document.getElementById("deathDate");

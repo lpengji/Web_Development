@@ -152,6 +152,7 @@ function createHTMLPage(){
 // carga y crea dinamicamente la pagina HTML 
 function reloadHTMLPage(){
 
+    loadUserInformation()
     let currentElement;
 
     if (currentVisitingElementType === "products"){
@@ -167,7 +168,6 @@ function reloadHTMLPage(){
 
             generateFooter(currentElement).then(function(){
                 if(isWriter){
-                    console.log(isWriter)
                     generateRemoveButton();
                 } 
             }).catch(function(error){
