@@ -7,6 +7,5 @@ class Entity extends Element{
         super(name,birthDate,deathDate,wikiURL,imageURL);
         this.personList = personList;
         this.productList = productList;
-
-    }    
+    }   
 }
