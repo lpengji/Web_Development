@@ -38,7 +38,7 @@ class BDPerson {
                 url: Person_URL_LINK+`/${id}`,
                 type: 'GET',
                 success: function(response, textStatus, jqXHR) {
-                    var etag = jqXHR.getResponseHeader('ETag');
+                    let etag = jqXHR.getResponseHeader('ETag');
                     resolve(etag);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -95,7 +95,7 @@ class BDPerson {
                 url: Person_URL_LINK+`/${id}`,
                 type: 'GET',
                 success: function(response, textStatus, request) {
-                var etag = request.getResponseHeader('ETag');
+                let etag = request.getResponseHeader('ETag');
                 resolve(etag);
                 },
                 error: function(error) {

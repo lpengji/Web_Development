@@ -33,7 +33,7 @@ footer{
     overflow: auto;
 }
 
-.login, .userInformation{
+.login, .userInformation, .informationDiv{
 	text-align: center;
 	border: 3px solid black;
 	margin: 1%;

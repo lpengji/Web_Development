@@ -79,7 +79,7 @@ class BDProduct {
                 url: Product_URL_LINK+`/${id}`,
                 type: 'GET',
                 success: function(response, textStatus, request) {
-                var etag = request.getResponseHeader('ETag');
+                let etag = request.getResponseHeader('ETag');
                 resolve(etag);
                 },
                 error: function(error) {

@@ -18,6 +18,52 @@ runOnlyOnceSetDefaultValues();
 // generar comentario de bienvenida con informacion del usuario
 function loadUserInformation(){
     userInformationBody.innerHTML +=`Bienvenido ${username}`
+    generateMoreInformationButton()
+}
+
+//carga boton masInformacion
+function generateMoreInformationButton(){
+    userInformationBody.innerHTML += `  <button onclick="generateMoreInformation()">more information</button>`
+}
+
+// genera nuevo div con informacion del usuario
+function generateMoreInformation(){
+    let cancelButton = event.target
+    cancelButton.innerHTML = `<button onclick="location.reload()">cancelar</button>`
+
+    let informationDiv = document.createElement("div")
+    informationDiv.classList.add("informationDiv")
+
+    BDUser.getUserInfoByName(username)
+    .then(function(user) {
+        informationDiv.innerHTML = `
+        ID <div id="id">${user.id}</div><br>
+        <label for="username">Username:</label>
+        <input id="username" type="text" name="username" value="${user.username}"/> <br>
+        <label for="correo">correo:</label>
+        <input id="correo" type="text" name="Correo" value="${user.email}"/> <br>
+        <label for="password">Contraseña:</label>
+        <input id="password" type="password" name="password" value="${user.username}"/><br>
+        <label for="birthday">Fecha Nacimiento:</label>
+        <input id="birthday" type="date" name="birthday" value="" />  "recuerda$ {user.birthday}"<br>
+        <input type="submit" name="enviar" value="guardar" onclick="guardarInformacion()"/> `
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+    userInformationBody.parentNode.insertBefore(informationDiv, userInformationBody.nextSibling)
+}
+
+function guardarInformacion(){
+    let id = document.getElementById("id").innerHTML;
+    let username = document.getElementById("username").value;
+    let correo = document.getElementById("correo").value;
+    let password = document.getElementById("password").value;
+    let birthday = document.getElementById("birthday").value;
+    let role = JSON.parse(sessionStorage.getItem("isWriter")) ? "writer" : "reader";
+    BDUser.changeUserInformation(id,username,correo,password,role);
+    sessionStorage.setItem("username",JSON.stringify(username))
+    location.reload();
 }
 
 // si el usuario se ha logeado y es writer
