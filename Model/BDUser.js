@@ -85,8 +85,8 @@ class BDUser {
               username: username,
               email: email,
               password: password,
-              role: role
-              // falta birthdate
+              role: role,
+              birthDate: birthdate
             }
             
             $.ajax({
@@ -111,6 +111,40 @@ class BDUser {
             console.error("Error al obtener el ETag:", error);
         });
     }
+
+    static changeUserInformation(id,username,email,password,role,birthdate,state){
+      BDUser.getUserEtagById(id).then(function(etag) {
+          let data= {
+            username: username,
+            email: email,
+            password: password,
+            role: role,
+            birthDate: birthdate,
+            state: state
+          }
+          
+          $.ajax({
+              url: USER_URL_LINK+`/${id}`,
+              type: "PUT",
+              data: JSON.stringify(data),
+              headers: {
+                  "If-Match": etag,
+                  "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
+                  +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
+              },
+              contentType: "application/json",
+              success: function(response) {
+                  alert("modificación exitosa")
+              },
+              error: function(xhr, status, error) {
+                  console.log(error)
+              }
+          })
+      })
+      .catch(function(error) {
+          console.error("Error al obtener el ETag:", error);
+      });
+  }
 
     static deleteUserById(id){
       $.ajax({

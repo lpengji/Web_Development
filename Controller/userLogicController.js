@@ -50,7 +50,7 @@ function generateMoreInformation(){
         <label for="password">Contraseña:</label>
         <input id="password" type="password" name="password" value="${user.username}"/><br>
         <label for="birthday">Fecha Nacimiento:</label>
-        <input id="birthday" type="date" name="birthday" value="" />  "recuerda$ {user.birthday}"<br>
+        <input id="birthday" type="date" name="birthday" value="${user.birthDate}"/><br>
         <input type="submit" name="enviar" value="guardar" onclick="guardarInformacion()"/> `
     })
     .catch(function(error) {
@@ -64,9 +64,9 @@ function guardarInformacion(){
     let username = document.getElementById("username").value;
     let correo = document.getElementById("correo").value;
     let password = document.getElementById("password").value;
-    let birthday = document.getElementById("birthday").value; //pasar como parámetro
+    let birthday = document.getElementById("birthday").value;
     let role = JSON.parse(sessionStorage.getItem("isWriter")) ? "writer" : "reader";
-    BDUser.changeUserInformation(id,username,correo,password,role);
+    BDUser.changeUserInformation(id,username,correo,password,role,birthday);
     sessionStorage.setItem("username",JSON.stringify(username))
     location.reload();
 }
@@ -82,7 +82,7 @@ function showAllUserInformation(){
     BDUser.getAllUsers()
     .then(function(users) {
         for(let i =0; i<users.length; i++){
-            if(users[i].user.username !== JSON.parse(sessionStorage.getItem("username"))){
+            if(users[i].user.username !== JSON.parse(sessionStorage.getItem("username")) && users[i].user.state!=="PENDINGACCEPTANCE"){
                 allUserInformationDiv.innerHTML += 
                 `<div id="user${users[i].user.id}">ID <div class="userID">${users[i].user.id}</div> --
                 <label for="UserUsername">Username:</label>
@@ -92,7 +92,7 @@ function showAllUserInformation(){
                 <label for="UserPassword">Contraseña:</label>
                 <input id="UserPassword" type="password" name="UserPassword" value="${users[i].user.username}"/> --
                 <label for="UserBirthday">Fecha Nacimiento:</label>
-                <input id="UserBirthday" type="date" name="UserBirthday" value="" />  "recuerda$ users[i].user.username"- -
+                <input id="UserBirthday" type="date" name="UserBirthday" value="${ users[i].user.birthDate}" /> - -
                 <label for="UserRole">Rol:</label>
                 <select id="UserRole" name="UserRole">
                     <option value="${users[i].user.role.toLowerCase()}" selected>${users[i].user.role}</option>
@@ -102,7 +102,7 @@ function showAllUserInformation(){
                 </select><br>
                 <input type="submit" name="enviar" value="guardar" onclick="guardarNewUserInformacion()"/>
                 <input type="submit" name="enviar" value="dar de baja" onclick="setBajaUsuario()"/> 
-                <input type="submit" name="enviar" value="dar de inactivo/activo" onclick="setInactivoUsuario()"/> PENDIENTE
+                <input type="submit" name="enviar" value="${users[i].user.state === 'ACTIVE' ? 'inactive' : 'active'}" onclick="setEstadoUsuario()"/>
                 <br><br><br><br>
                 </div>
                 `
@@ -125,7 +125,7 @@ function guardarNewUserInformacion(){
     let constraseña = currentDiv.querySelector(`input[name="UserPassword"]`).value
     let birthday = currentDiv.querySelector(`input[name="UserBirthday"]`).value
     let rol = currentDiv.querySelector('#UserRole').value
-    BDUser.changeUserInformation(id,username,correo,constraseña,rol);
+    BDUser.changeUserInformation(id,username,correo,constraseña,rol,birthday);
     location.reload();
 }
 
@@ -134,6 +134,19 @@ function setBajaUsuario(){
     let currentDiv = document.querySelector(`.informationDiv #${event.target.parentNode.id}`)
     let id = currentDiv.querySelector(".userID").innerHTML
     BDUser.deleteUserById(id);
+    location.reload();
+}
+
+function setEstadoUsuario(){
+    let currentDiv = document.querySelector(`.informationDiv #${event.target.parentNode.id}`)
+    let id = currentDiv.querySelector(".userID").innerHTML
+    let username = currentDiv.querySelector('input[name="UserUsername"]').value
+    let correo = currentDiv.querySelector(`input[name="UserCorreo"]`).value
+    let constraseña = currentDiv.querySelector(`input[name="UserPassword"]`).value
+    let birthday = currentDiv.querySelector(`input[name="UserBirthday"]`).value
+    let rol = currentDiv.querySelector('#UserRole').value
+    let state = event.target.value === "active" ? "active":"inactive";
+    BDUser.changeUserInformation(id,username,correo,constraseña,rol,birthday,state);
     location.reload();
 }
 
