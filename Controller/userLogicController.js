@@ -17,13 +17,18 @@ runOnlyOnceSetDefaultValues();
 
 // generar comentario de bienvenida con informacion del usuario
 function loadUserInformation(){
-    userInformationBody.innerHTML +=`Bienvenido ${username}`
+    userInformationBody.innerHTML =`Bienvenido ${username}`
     generateMoreInformationButton()
 }
 
-//carga boton masInformacion
+//carga boton adicionales sobre informaciones
 function generateMoreInformationButton(){
-    userInformationBody.innerHTML += `  <button onclick="generateMoreInformation()">more information</button>`
+    userInformationBody.innerHTML += `  <button onclick="generateMoreInformation()">mis datos personales</button>`
+    if(isWriter){
+        userInformationBody.innerHTML += `  <button onclick="showAllUserInformation()">gestión usuario BBDD</button>`
+        userInformationBody.innerHTML += `  <button onclick="showNotRegisteredUserInformation()">alta nuevo usuario</button>`
+    
+    }
 }
 
 // genera nuevo div con informacion del usuario
@@ -59,11 +64,76 @@ function guardarInformacion(){
     let username = document.getElementById("username").value;
     let correo = document.getElementById("correo").value;
     let password = document.getElementById("password").value;
-    let birthday = document.getElementById("birthday").value;
+    let birthday = document.getElementById("birthday").value; //pasar como parámetro
     let role = JSON.parse(sessionStorage.getItem("isWriter")) ? "writer" : "reader";
     BDUser.changeUserInformation(id,username,correo,password,role);
     sessionStorage.setItem("username",JSON.stringify(username))
     location.reload();
+}
+
+// muestra los datos de todos los usuarios
+function showAllUserInformation(){
+    let cancelButton = event.target
+    cancelButton.innerHTML = `<button onclick="location.reload()">cancelar</button>`
+
+    let allUserInformationDiv = document.createElement("div")
+    allUserInformationDiv.classList.add("informationDiv")
+
+    BDUser.getAllUsers()
+    .then(function(users) {
+        for(let i =0; i<users.length; i++){
+            if(users[i].user.username !== JSON.parse(sessionStorage.getItem("username"))){
+                allUserInformationDiv.innerHTML += 
+                `<div id="user${users[i].user.id}">ID <div class="userID">${users[i].user.id}</div> --
+                <label for="UserUsername">Username:</label>
+                <input id="UserUsername" type="text" name="UserUsername" value="${users[i].user.username}"/> --
+                <label for="UserCorreo">correo:</label>
+                <input id="UserCorreo" type="text" name="UserCorreo" value="${users[i].user.email}"/> --
+                <label for="UserPassword">Contraseña:</label>
+                <input id="UserPassword" type="password" name="UserPassword" value="${users[i].user.username}"/> --
+                <label for="UserBirthday">Fecha Nacimiento:</label>
+                <input id="UserBirthday" type="date" name="UserBirthday" value="" />  "recuerda$ users[i].user.username"- -
+                <label for="UserRole">Rol:</label>
+                <select id="UserRole" name="UserRole">
+                    <option value="${users[i].user.role.toLowerCase()}" selected>${users[i].user.role}</option>
+                    <option value="${users[i].user.role === 'WRITER' ? 'reader' : 'writer'}">
+                        ${users[i].user.role === 'WRITER' ? 'READER' : 'WRITER'}
+                    </option>
+                </select><br>
+                <input type="submit" name="enviar" value="guardar" onclick="guardarNewUserInformacion()"/>
+                <input type="submit" name="enviar" value="dar de baja" onclick="setBajaUsuario()"/> PENDIENTE
+                <input type="submit" name="enviar" value="dar de inactivo/activo" onclick="setInactivoUsuario()"/> PENDIENTE
+                <br><br><br><br>
+                </div>
+                `
+            }
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+    userInformationBody.parentNode.insertBefore(allUserInformationDiv, userInformationBody.nextSibling)
+}
+
+// guarda los datos modificados por el writer
+function guardarNewUserInformacion(){
+    
+    let currentDiv = document.querySelector(`.informationDiv #${event.target.parentNode.id}`)
+    let id = currentDiv.querySelector(".userID").innerHTML
+    let username = currentDiv.querySelector('input[name="UserUsername"]').value
+    let correo = currentDiv.querySelector(`input[name="UserCorreo"]`).value
+    let constraseña = currentDiv.querySelector(`input[name="UserPassword"]`).value
+    let birthday = currentDiv.querySelector(`input[name="UserBirthday"]`).value
+    let rol = currentDiv.querySelector('#UserRole').value
+    BDUser.changeUserInformation(id,username,correo,constraseña,rol);
+    // location.reload();
+
+    
+}
+
+// muestra los usuarios pendiente de dar alta
+function showNotRegisteredUserInformation(){
+    alert("hola showNotRegisteredUserInformation")
 }
 
 // si el usuario se ha logeado y es writer

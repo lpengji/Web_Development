@@ -106,7 +106,6 @@ class BDUser {
                   console.log(error)
               }
           })
-
       })
       .catch(function(error) {
           console.error("Error al obtener el ETag:", error);
