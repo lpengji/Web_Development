@@ -77,38 +77,55 @@ class BDUser {
               }
           });
       });
-  }
+    }
 
-  static changeUserInformation(id,username,email,password,role,birthdate){
-      BDUser.getUserEtagById(id).then(function(etag) {
-          let data= {
-            username: username,
-            email: email,
-            password: password,
-            role: role
-            // falta birthdate
-          }
-          
-          $.ajax({
-              url: USER_URL_LINK+`/${id}`,
-              type: "PUT",
-              data: JSON.stringify(data),
-              headers: {
-                  "If-Match": etag,
-                  "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
-                  +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
-              },
-              contentType: "application/json",
-              success: function(response) {
-                  alert("modificacíon exitosa")
-              },
-              error: function(xhr, status, error) {
-                  console.log(error)
-              }
-          })
-      })
-      .catch(function(error) {
-          console.error("Error al obtener el ETag:", error);
-      });
-  }
+    static changeUserInformation(id,username,email,password,role,birthdate){
+        BDUser.getUserEtagById(id).then(function(etag) {
+            let data= {
+              username: username,
+              email: email,
+              password: password,
+              role: role
+              // falta birthdate
+            }
+            
+            $.ajax({
+                url: USER_URL_LINK+`/${id}`,
+                type: "PUT",
+                data: JSON.stringify(data),
+                headers: {
+                    "If-Match": etag,
+                    "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
+                    +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
+                },
+                contentType: "application/json",
+                success: function(response) {
+                    alert("modificación exitosa")
+                },
+                error: function(xhr, status, error) {
+                    console.log(error)
+                }
+            })
+        })
+        .catch(function(error) {
+            console.error("Error al obtener el ETag:", error);
+        });
+    }
+
+    static deleteUserById(id){
+      $.ajax({
+        url: USER_URL_LINK+`/${id}`,
+        type: 'DELETE',
+        headers:{
+            "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
+            +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
+        },
+        success: function(response) {
+          alert('User deleted');
+        },
+        error: function(error) {
+          console.error('Error deleting element:', error);
+        }
+    })
+    }
 }

@@ -101,7 +101,7 @@ function showAllUserInformation(){
                     </option>
                 </select><br>
                 <input type="submit" name="enviar" value="guardar" onclick="guardarNewUserInformacion()"/>
-                <input type="submit" name="enviar" value="dar de baja" onclick="setBajaUsuario()"/> PENDIENTE
+                <input type="submit" name="enviar" value="dar de baja" onclick="setBajaUsuario()"/> 
                 <input type="submit" name="enviar" value="dar de inactivo/activo" onclick="setInactivoUsuario()"/> PENDIENTE
                 <br><br><br><br>
                 </div>
@@ -126,9 +126,15 @@ function guardarNewUserInformacion(){
     let birthday = currentDiv.querySelector(`input[name="UserBirthday"]`).value
     let rol = currentDiv.querySelector('#UserRole').value
     BDUser.changeUserInformation(id,username,correo,constraseña,rol);
-    // location.reload();
+    location.reload();
+}
 
-    
+// dar de baja a un usuario
+function setBajaUsuario(){
+    let currentDiv = document.querySelector(`.informationDiv #${event.target.parentNode.id}`)
+    let id = currentDiv.querySelector(".userID").innerHTML
+    BDUser.deleteUserById(id);
+    location.reload();
 }
 
 // muestra los usuarios pendiente de dar alta
