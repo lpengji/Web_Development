@@ -30,7 +30,6 @@ class BDUser {
         birthDate: null,
         state: null
       }
-      console.log(JSON.stringify(data))
       $.ajax({
         url: USER_URL_LINK ,
         method: 'POST',
@@ -40,7 +39,7 @@ class BDUser {
             alert("Peticion realizada");
         },
         error: function(error) {
-            alert(error.responseJSON)
+            alert("error")
         }
     });
     }
