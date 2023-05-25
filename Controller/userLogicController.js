@@ -137,6 +137,7 @@ function setBajaUsuario(){
     location.reload();
 }
 
+// set activo/incativo
 function setEstadoUsuario(){
     let currentDiv = document.querySelector(`.informationDiv #${event.target.parentNode.id}`)
     let id = currentDiv.querySelector(".userID").innerHTML
@@ -145,14 +146,51 @@ function setEstadoUsuario(){
     let constraseña = currentDiv.querySelector(`input[name="UserPassword"]`).value
     let birthday = currentDiv.querySelector(`input[name="UserBirthday"]`).value
     let rol = currentDiv.querySelector('#UserRole').value
-    let state = event.target.value === "active" ? "active":"inactive";
+    let state = (event.target.value === "active" || event.target.value === "alta user") ? "active":"inactive";
     BDUser.changeUserInformation(id,username,correo,constraseña,rol,birthday,state);
     location.reload();
 }
 
 // muestra los usuarios pendiente de dar alta
 function showNotRegisteredUserInformation(){
-    alert("hola showNotRegisteredUserInformation")
+    let cancelButton = event.target
+    cancelButton.innerHTML = `<button onclick="location.reload()">cancelar</button>`
+
+    let notRegisteredUserInformationDiv = document.createElement("div")
+    notRegisteredUserInformationDiv.classList.add("informationDiv")
+
+    BDUser.getAllUsers()
+    .then(function(users) {
+        for(let i =0; i<users.length; i++){
+            if(users[i].user.username !== JSON.parse(sessionStorage.getItem("username")) && users[i].user.state==="PENDINGACCEPTANCE"){
+                notRegisteredUserInformationDiv.innerHTML += 
+                `<div id="user${users[i].user.id}">ID <div class="userID">${users[i].user.id}</div> --
+                <label for="UserUsername">Username:</label>
+                <input id="UserUsername" type="text" name="UserUsername" value="${users[i].user.username}"/> --
+                <label for="UserCorreo">correo:</label>
+                <input id="UserCorreo" type="text" name="UserCorreo" value="${users[i].user.email}"/> --
+                <label for="UserPassword">Contraseña:</label>
+                <input id="UserPassword" type="password" name="UserPassword" value="${users[i].user.username}"/> --
+                <label for="UserBirthday">Fecha Nacimiento:</label>
+                <input id="UserBirthday" type="date" name="UserBirthday" value="${ users[i].user.birthDate}" /> - -
+                <label for="UserRole">Rol:</label>
+                <select id="UserRole" name="UserRole">
+                    <option value="${users[i].user.role.toLowerCase()}" selected>${users[i].user.role}</option>
+                    <option value="${users[i].user.role === 'WRITER' ? 'reader' : 'writer'}">
+                        ${users[i].user.role === 'WRITER' ? 'READER' : 'WRITER'}
+                    </option>
+                </select><br>
+                <input type="submit" name="enviar" value="alta user" onclick="setEstadoUsuario()"/>
+                <br><br><br><br>
+                </div>
+                `
+            }
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+    userInformationBody.parentNode.insertBefore(notRegisteredUserInformationDiv, userInformationBody.nextSibling)
 }
 
 // si el usuario se ha logeado y es writer
