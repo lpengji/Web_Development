@@ -193,6 +193,32 @@ function showNotRegisteredUserInformation(){
     userInformationBody.parentNode.insertBefore(notRegisteredUserInformationDiv, userInformationBody.nextSibling)
 }
 
+function registrarNewUser(){
+    event.target.style.display = "none"
+
+    let registrationInformationDiv = document.createElement("div")
+    registrationInformationDiv.classList.add("informationDiv")
+
+    registrationInformationDiv.innerHTML += `
+    <label for="UserUsername">Username:</label>
+    <input id="UserUsername" type="text" name="UserUsername"/> 
+    <label for="UserPassword">Contraseña:</label>
+    <input id="UserPassword" type="password" name="UserPassword"/> 
+    <input type="submit" name="enviar" value="registrar" onclick="darAltaUser()"/>
+    <button onclick="location.reload()">cancelar</button>
+    `
+    userInformationBody.parentNode.insertBefore(registrationInformationDiv, userInformationBody.nextSibling)
+}
+
+function darAltaUser(){
+    let currentDiv = document.querySelector(`.informationDiv`)
+    let username = currentDiv.querySelector('input[name="UserUsername"]').value
+    let constraseña = currentDiv.querySelector(`input[name="UserPassword"]`).value
+
+    BDUser.postNewUser(username,constraseña)
+    location.reload()
+}
+
 // si el usuario se ha logeado y es writer
 function loginController(){
     this.replaceLoginButton();
@@ -286,7 +312,8 @@ function replaceLogoutButton(){
     <input id="campoUsuario" type="text" name="campoUsuario" />
     <label for="campoContraseña">Contraseña:</label>
     <input id="campoContraseña" type="password" name="campoContraseña" />
-    <input type="submit" name="enviar" value="login" onclick="login()"/>`
+    <input type="submit" name="enviar" value="login" onclick="login()"/>
+    <input type="submit" name="enviar" value="registrar" onclick="registrarNewUser()"/>`
 }
 
 function removeAddButton(){

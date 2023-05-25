@@ -24,10 +24,26 @@ function showOnLoad(){
 // carga los contenidos del localStorage por pantalla
 function onLoad(){
     if(state !== null && state !== undefined && state !== ""){
-        loadUserInformation()
-        Promise.all([loadPersonList(), loadEntityList(), loadProductList()])
-        .then(function() {
-            loginController();
+        BDUser.getUserInfoByName(username)
+        .then(function(user) {
+            if(user.state === "ACTIVE"){
+                loadUserInformation()
+                Promise.all([loadPersonList(), loadEntityList(), loadProductList()])
+                .then(function() {
+                    loginController();
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
+            }
+            else{
+                sessionStorage.clear();
+                productBody.style.display = "none";
+                personBody.style.display = "none";
+                entityBody.style.display = "none";
+                console.log("Sin permiso de acceso")
+            }
+                
         })
         .catch(function(error) {
             console.error(error);

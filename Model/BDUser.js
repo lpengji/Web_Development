@@ -21,6 +21,30 @@ class BDUser {
         });
     }
 
+    static postNewUser(username,password){
+      let data= {
+        username: username,
+        email: null,
+        password: password,
+        role: "reader",
+        birthDate: null,
+        state: null
+      }
+      console.log(JSON.stringify(data))
+      $.ajax({
+        url: USER_URL_LINK ,
+        method: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function(response) {
+            alert("Peticion realizada");
+        },
+        error: function(error) {
+            alert(error.responseJSON)
+        }
+    });
+    }
+
     static getAllUsers(){
         return new Promise(function(resolve, reject) {
             $.ajax({
@@ -29,7 +53,7 @@ class BDUser {
               headers:{
                 "Authorization":JSON.parse(sessionStorage.getItem("response")).token_type 
                 +" "+ JSON.parse(sessionStorage.getItem("response")).access_token
-            },
+              },
               success: function(response) {
                 resolve(response.users);
               },
@@ -143,7 +167,7 @@ class BDUser {
       })
       .catch(function(error) {
           console.error("Error al obtener el ETag:", error);
-      });
+    });
   }
 
     static deleteUserById(id){
@@ -160,6 +184,6 @@ class BDUser {
         error: function(error) {
           console.error('Error deleting element:', error);
         }
-    })
+      })
     }
 }
