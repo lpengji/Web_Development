@@ -3,12 +3,15 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../style.css"/>
     <title></title>
 </head>
 <body onload="reloadHTMLPage()">
     <header><h2>Anales de la Ciencia</h2></header>
+
+    <div class="userInformation">
+    </div>
 
     <nav><a href="index.html" class="previousPage">Inicio</a>/<a href="" class="currentPage"></a></nav>
     <main>
@@ -29,12 +32,17 @@
         </div>
     </footer>
 
-    <script src="../Model/Relation.js"></script>
     <script src="../Model/Element.js"></script>
     <script src="../Model/Person.js"></script>
+    <script src="../Model/BDPerson.js"></script>
     <script src="../Model/Entity.js"></script>
+    <script src="../Model/BDEntity.js"></script>
     <script src="../Model/Product.js"></script>
+    <script src="../Model/BDProduct.js"></script>
+    <script src="../Model/BDUser.js"></script>
     <script src="../Controller/programFunctionality.js"></script>
+    <script src="../Controller/indexController.js"></script>
+    <script src="../Controller/userLogicController.js"></script>
 
 </body>
 </html>
